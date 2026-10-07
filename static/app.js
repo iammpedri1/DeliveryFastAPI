@@ -104,25 +104,7 @@ function renderCart() {
 
 async function initAccount() {
   const form = document.querySelector('#account-form');
-  let signup = false;
   let adminLogin = false;
-  const setMode = value => {
-    signup = value;
-    if (signup) {
-      adminLogin = false;
-      document.querySelectorAll('[data-role]').forEach(item => item.classList.toggle('active', item.dataset.role === 'customer'));
-    }
-    document.querySelector('#role-tabs').hidden = signup;
-    document.querySelector('#name-field').hidden = !signup;
-    document.querySelector('#confirm-field').hidden = !signup;
-    document.querySelector('#form-eyebrow').textContent = signup ? 'Nova conta' : 'Acessar conta';
-    document.querySelector('#form-title').textContent = signup ? 'Vamos criar sua conta.' : 'Boas-vindas';
-    document.querySelector('#form-copy').textContent = signup ? 'Preencha seus dados para criar sua conta.' : 'Entre para acompanhar seus pedidos ou crie uma conta em poucos passos.';
-    document.querySelector('#submit-account').textContent = signup ? 'Criar conta' : `Entrar como ${adminLogin ? 'administrador' : 'cliente'}`;
-    document.querySelector('#switch-mode').textContent = signup ? 'Já tem uma conta? Entrar' : 'Ainda não tem conta? Cadastre-se';
-    document.querySelector('#password').autocomplete = signup ? 'new-password' : 'current-password';
-  };
-  document.querySelector('#switch-mode').onclick = () => setMode(!signup);
   document.querySelectorAll('[data-role]').forEach(button => button.onclick = () => {
     adminLogin = button.dataset.role === 'admin';
     document.querySelectorAll('[data-role]').forEach(item => item.classList.toggle('active', item === button));
@@ -143,26 +125,39 @@ async function initAccount() {
     const email = document.querySelector('#email').value.trim();
     const password = document.querySelector('#password').value;
     try {
-      if (signup) {
-        if (password !== document.querySelector('#confirm-password').value) throw new Error('As senhas não coincidem.');
-        await request('/auth/signup', { method: 'POST', body: JSON.stringify({ nome: document.querySelector('#name').value.trim(), email, senha: password }) });
-        const login = await request('/auth/signin', { method: 'POST', body: JSON.stringify({ email, senha: password }) });
-        token = login.access_token;
-        localStorage.setItem('delivery_token', token);
-        document.querySelector('#account-message').textContent = 'Conta criada e acesso iniciado.';
-        setTimeout(() => { location.href = '/site/pedidos.html'; }, 1100);
-      } else {
-        const login = await request('/auth/signin', { method: 'POST', body: JSON.stringify({ email, senha: password }) });
-        token = login.access_token;
-        const user = await request('/auth/me');
-        if (Boolean(user.admin) !== adminLogin) {
-          token = '';
-          throw new Error(adminLogin ? 'Esta conta não tem acesso de administrador.' : 'Use a opção Administrador para entrar nesta conta.');
-        }
-        localStorage.setItem('delivery_token', token);
-        location.href = '/site/pedidos.html';
+      const login = await request('/auth/signin', { method: 'POST', body: JSON.stringify({ email, senha: password }) });
+      token = login.access_token;
+      const user = await request('/auth/me');
+      if (Boolean(user.admin) !== adminLogin) {
+        token = '';
+        throw new Error(adminLogin ? 'Esta conta não tem acesso de administrador.' : 'Use a opção Administrador para entrar nesta conta.');
       }
+      localStorage.setItem('delivery_token', token);
+      location.href = '/site/pedidos.html';
     } catch (error) { document.querySelector('#account-message').textContent = error.message; }
+  };
+}
+
+async function initSignup() {
+  const form = document.querySelector('#signup-form');
+  const message = document.querySelector('#signup-message');
+  form.onsubmit = async event => {
+    event.preventDefault();
+    const nome = document.querySelector('#signup-name').value.trim();
+    const email = document.querySelector('#signup-email').value.trim();
+    const senha = document.querySelector('#signup-password').value;
+    if (senha !== document.querySelector('#signup-confirm-password').value) {
+      message.textContent = 'As senhas não coincidem.';
+      return;
+    }
+    try {
+      await request('/auth/signup', { method: 'POST', body: JSON.stringify({ nome, email, senha }) });
+      const login = await request('/auth/signin', { method: 'POST', body: JSON.stringify({ email, senha }) });
+      token = login.access_token;
+      localStorage.setItem('delivery_token', token);
+      message.textContent = 'Cadastro concluído. Abrindo sua conta...';
+      setTimeout(() => { location.href = '/site/pedidos.html'; }, 800);
+    } catch (error) { message.textContent = error.message; }
   };
 }
 
@@ -241,6 +236,7 @@ if (document.body.dataset.page === 'menu') {
   };
   initMenu();
 } else if (document.body.dataset.page === 'account') initAccount();
+else if (document.body.dataset.page === 'signup') initSignup();
 else if (document.body.dataset.page === 'orders') initOrders();
 else if (document.body.dataset.page === 'notifications') {
   initNotifications();

@@ -22,6 +22,7 @@ Abra `http://127.0.0.1:8000/`. A documentação da API fica em `http://127.0.0.1
 ## O que dá para fazer
 
 - Ver o cardápio separado por categoria e escolher entre três tamanhos.
+- Entrar e criar uma conta em telas separadas.
 - Criar uma conta de cliente. O cadastro não cria um pedido.
 - Fazer pedidos e acompanhar seu próprio histórico. O carrinho é validado e salvo de uma vez.
 - Cancelar um pedido que ainda está pendente.

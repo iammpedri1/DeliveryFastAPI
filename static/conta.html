@@ -1,3 +1,70 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Minha conta — Forno & Folha</title><link rel="stylesheet" href="/site/style.css"><script defer src="/site/app.js"></script></head><body data-page="account">
-<header class="top"><a class="brand" href="/site/">forno<span>&</span>folha</a><nav><a href="/site/cardapio.html">Cardápio</a><a href="/site/pedidos.html">Meus pedidos</a><a href="/site/notificacoes.html">Notificações</a><a class="selected" href="/site/conta.html">Minha conta</a></nav><a class="button small" href="/site/cardapio.html">Fazer pedido</a></header>
-<main class="account-wrap"><section class="account-intro"><p class="eyebrow">Sua experiência</p><h1>Um bom pedido começa por aqui.</h1><p>Crie sua conta para guardar seus pedidos e acompanhar cada etapa.</p><div class="account-benefit"><b>Uma conta para cada pessoa</b><span>Seus dados e pedidos ficam protegidos pelo seu acesso individual.</span></div></section><section class="box account-box"><div id="account-view"><p class="eyebrow" id="form-eyebrow">Acessar conta</p><h2 id="form-title">Boas-vindas</h2><p class="muted" id="form-copy">Entre para acompanhar seus pedidos ou crie uma conta em poucos passos.</p><div class="role-tabs" id="role-tabs"><button type="button" class="active" data-role="customer">Cliente</button><button type="button" data-role="admin">Administrador</button></div><form id="account-form"><div class="field" id="name-field" hidden><label for="name">Nome completo</label><input id="name" autocomplete="name" placeholder="Como podemos chamar você?" minlength="2"></div><div class="field"><label for="email">E-mail</label><input id="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required></div><div class="field"><label for="password">Senha</label><input id="password" type="password" autocomplete="current-password" placeholder="Pelo menos 8 caracteres" minlength="8" required></div><div class="field" id="confirm-field" hidden><label for="confirm-password">Confirme sua senha</label><input id="confirm-password" type="password" autocomplete="new-password" placeholder="Digite a senha novamente"></div><button class="button full" id="submit-account" type="submit">Entrar como cliente</button></form><button class="text-button" id="switch-mode">Ainda não tem conta? Cadastre-se</button><p class="hint" id="account-message" role="status"></p></div><div id="signed-in" hidden><p class="eyebrow">Conta conectada</p><h2 id="greeting"></h2><p class="muted">Sua conta e seus pedidos estão prontos.</p><a class="button full" href="/site/pedidos.html">Ver meus pedidos</a><button class="text-button" id="logout">Sair da conta</button></div></section></main><footer>Forno & Folha <span>Seus dados são protegidos.</span></footer><div id="toast" class="toast"></div></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrar — Forno & Folha</title>
+  <link rel="stylesheet" href="/site/style.css">
+  <script defer src="/site/app.js"></script>
+</head>
+<body data-page="account">
+  <header class="top">
+    <a class="brand" href="/site/">forno<span>&</span>folha</a>
+    <nav>
+      <a href="/site/cardapio.html">Cardápio</a>
+      <a href="/site/pedidos.html">Meus pedidos</a>
+      <a href="/site/notificacoes.html">Notificações</a>
+      <a class="selected" href="/site/conta.html">Minha conta</a>
+    </nav>
+    <a class="button small" href="/site/cardapio.html">Fazer pedido</a>
+  </header>
+
+  <main class="account-wrap">
+    <section class="account-intro">
+      <p class="eyebrow">Acesse sua conta</p>
+      <h1>Seu próximo pedido começa aqui.</h1>
+      <p>Entre para acompanhar seus pedidos e receber atualizações da entrega.</p>
+      <div class="account-benefit">
+        <b>Seus pedidos, no mesmo lugar</b>
+        <span>Consulte o andamento e o histórico da sua conta.</span>
+      </div>
+    </section>
+
+    <section class="box account-box">
+      <div id="account-view">
+        <p class="eyebrow">Acessar conta</p>
+        <h2>Boas-vindas</h2>
+        <p class="muted">Informe seus dados para continuar.</p>
+        <div class="role-tabs" aria-label="Tipo de acesso">
+          <button type="button" class="active" data-role="customer">Cliente</button>
+          <button type="button" data-role="admin">Administrador</button>
+        </div>
+        <form id="account-form">
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+          </div>
+          <div class="field">
+            <label for="password">Senha</label>
+            <input id="password" type="password" autocomplete="current-password" placeholder="Sua senha" required>
+          </div>
+          <button class="button full" id="submit-account" type="submit">Entrar como cliente</button>
+        </form>
+        <p class="hint" id="account-message" role="status"></p>
+        <p class="account-switch">Ainda não tem cadastro? <a href="/site/cadastro.html">Criar uma conta</a></p>
+      </div>
+
+      <div id="signed-in" hidden>
+        <p class="eyebrow">Conta conectada</p>
+        <h2 id="greeting"></h2>
+        <p class="muted">Sua conta e seus pedidos estão prontos.</p>
+        <a class="button full" href="/site/pedidos.html">Ver meus pedidos</a>
+        <button class="text-button" id="logout">Sair da conta</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Forno & Folha <span>Seus dados são protegidos.</span></footer>
+  <div id="toast" class="toast"></div>
+</body>
+</html>

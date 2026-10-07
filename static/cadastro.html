@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Criar conta — Forno & Folha</title>
+  <link rel="stylesheet" href="/site/style.css">
+  <script defer src="/site/app.js"></script>
+</head>
+<body data-page="signup">
+  <header class="top">
+    <a class="brand" href="/site/">forno<span>&</span>folha</a>
+    <nav>
+      <a href="/site/cardapio.html">Cardápio</a>
+      <a href="/site/pedidos.html">Meus pedidos</a>
+      <a href="/site/notificacoes.html">Notificações</a>
+      <a class="selected" href="/site/conta.html">Minha conta</a>
+    </nav>
+    <a class="button small" href="/site/cardapio.html">Fazer pedido</a>
+  </header>
+
+  <main class="signup-wrap">
+    <section class="signup-intro">
+      <p class="eyebrow">Cadastro de cliente</p>
+      <h1>Peça do seu jeito.</h1>
+      <p>Crie sua conta para montar pedidos e acompanhar cada etapa da entrega.</p>
+      <div class="signup-steps" aria-label="Como funciona">
+        <div><span>01</span><p><b>Crie sua conta</b><small>Leva só alguns instantes.</small></p></div>
+        <div><span>02</span><p><b>Escolha suas pizzas</b><small>O pedido começa quando você finalizar a compra.</small></p></div>
+      </div>
+    </section>
+
+    <section class="box signup-box">
+      <p class="eyebrow">Nova conta</p>
+      <h2>Seus dados</h2>
+      <p class="muted">Preencha os campos para começar.</p>
+      <form id="signup-form">
+        <div class="field">
+          <label for="signup-name">Nome completo</label>
+          <input id="signup-name" autocomplete="name" placeholder="Como podemos chamar você?" minlength="2" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="signup-email">E-mail</label>
+          <input id="signup-email" type="email" autocomplete="email" placeholder="voce@exemplo.com" required>
+        </div>
+        <div class="field">
+          <label for="signup-password">Senha</label>
+          <input id="signup-password" type="password" autocomplete="new-password" placeholder="Pelo menos 8 caracteres" minlength="8" maxlength="128" required>
+        </div>
+        <div class="field">
+          <label for="signup-confirm-password">Confirme a senha</label>
+          <input id="signup-confirm-password" type="password" autocomplete="new-password" placeholder="Digite a senha novamente" minlength="8" maxlength="128" required>
+        </div>
+        <button class="button full" type="submit">Criar conta</button>
+      </form>
+      <p class="hint" id="signup-message" role="status"></p>
+      <p class="account-switch">Já tem cadastro? <a href="/site/conta.html">Entrar na minha conta</a></p>
+    </section>
+  </main>
+
+  <footer>Forno & Folha <span>Cadastro sem pedido automático.</span></footer>
+  <div id="toast" class="toast"></div>
+</body>
+</html>
