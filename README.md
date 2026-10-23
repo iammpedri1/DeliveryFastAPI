@@ -1,8 +1,16 @@
 # Forno & Folha
 
-Site de uma pizzaria com cardápio, contas de cliente, pedidos e avisos sobre cada etapa da entrega. A API é feita com FastAPI e salva os dados em SQLite.
+Aplicação web de pizzaria com catálogo, autenticação, pedidos e notificações de status de entrega.  
+O backend foi construído com **FastAPI** e o armazenamento local usa **SQLite**.
 
-## Iniciar no computador
+## Tecnologias
+
+- Python
+- FastAPI
+- SQLite
+- HTML, CSS e JavaScript (frontend estático)
+
+## Como executar localmente
 
 ```bash
 python -m venv .venv
@@ -11,52 +19,66 @@ pip install -r requirements.txt
 cp .env.example .env            # Windows: copy .env.example .env
 ```
 
-Troque `SECRET_KEY` no arquivo `.env` por um valor secreto e longo. Depois inicie o site:
+No arquivo `.env`, defina uma `SECRET_KEY` forte e exclusiva.  
+Depois inicie a aplicação:
 
 ```bash
 uvicorn main:app --reload
 ```
 
-Abra `http://127.0.0.1:8000/`. A documentação da API fica em `http://127.0.0.1:8000/docs`.
+- Aplicação: `http://127.0.0.1:8000/`
+- Documentação da API: `http://127.0.0.1:8000/docs`
 
-## O que dá para fazer
+## Funcionalidades
 
-- Ver o cardápio separado por categoria e escolher entre três tamanhos.
-- Entrar e criar uma conta em telas separadas.
-- Criar uma conta de cliente. O cadastro não cria um pedido.
-- Fazer pedidos e acompanhar seu próprio histórico. O carrinho é validado e salvo de uma vez.
-- Cancelar um pedido que ainda está pendente.
-- Receber avisos quando o restaurante atualizar o pedido.
-- Entrar como administrador para ajustar o cardápio e os status dos pedidos.
+- Cardápio por categoria com seleção de tamanho.
+- Cadastro e login em telas separadas.
+- Criação de conta de cliente (sem gerar pedido automático).
+- Criação e acompanhamento de pedidos com histórico.
+- Cancelamento de pedidos pendentes.
+- Notificações de atualização de status.
+- Área de administrador para gerenciar cardápio e pedidos.
 
-O servidor calcula os preços e verifica quem pode ver cada pedido e notificação. Uma conta comum não pode abrir os dados de outra conta.
+As regras de preço e de acesso ficam no servidor. Cada usuário só visualiza os próprios dados.
 
-## Criar uma conta de administrador
+## Conta de administrador
 
-O cadastro do site cria apenas contas de cliente. Para criar um administrador em uma instalação nova, rode:
+O fluxo padrão cria conta de cliente. Para criar um administrador:
 
 ```bash
 python scripts/criar_admin.py
 ```
 
-O programa pede o e-mail e a senha no terminal. A senha não é gravada no código. Depois, entre pela opção “Administrador” na página “Minha conta”.
+O script solicita e-mail e senha no terminal e não grava credenciais no código.
 
-## Testar os fluxos
+## Teste rápido da API
 
 ```bash
 python scripts/check_api.py
 ```
 
-O script usa um banco temporário em memória e não altera as contas ou pedidos locais.
+Esse script usa banco temporário em memória e não altera o banco local.
 
-## Usar em outro computador
+## Padrão de mensagens de commit
 
-Para testar em dispositivos seus, instale o Tailscale nos dois computadores, conecte-os à mesma rede privada e mantenha o servidor ligado. No computador que roda a API, use `tailscale serve 8000`; abra o endereço HTTPS mostrado no outro dispositivo.
+Para manter o histórico organizado, use um padrão simples:
 
-Para uma demonstração temporária, um túnel como Cloudflare Tunnel pode expor o site. Restrinja o acesso por e-mail e desligue o túnel quando terminar. Não encaminhe a porta 8000 do roteador para a internet.
+- `feat: ...` para novas funcionalidades
+- `fix: ...` para correções
+- `docs: ...` para documentação
+- `refactor: ...` para reorganização interna sem mudar comportamento
+- `chore: ...` para tarefas de manutenção
 
-## Dados e acesso ao código
+Exemplos:
 
-O arquivo `.env` contém segredos e o arquivo `banco.db` guarda as contas. Ambos ficam fora do Git. No GitHub, mantenha o repositório como **privado** e dê acesso somente às pessoas necessárias. O código não contém a senha da conta de teste.
+- `feat: adiciona filtro por categoria no cardápio`
+- `fix: corrige validação de tamanho da pizza`
+- `docs: atualiza instruções de execução no README`
 
-Para uma instalação pública, configure HTTPS, troque a chave secreta, use um banco adequado ao ambiente e limite tentativas de login. Este projeto é uma demonstração local, não um serviço pronto para receber pagamentos reais.
+## Segurança e uso em produção
+
+- Nunca versione `.env` e `banco.db`.
+- Mantenha o repositório privado quando houver dados reais.
+- Em produção, use HTTPS, banco apropriado ao ambiente e proteção contra abuso de login.
+
+Este projeto é focado em demonstração e ambiente local.
