@@ -11,7 +11,7 @@ pip install -r requirements.txt
 cp .env.example .env            # Windows: copy .env.example .env
 ```
 
-Troque `SECRET_KEY` no arquivo `.env` por um valor secreto e longo. Depois inicie o site:
+Troque `SECRET_KEY` no arquivo `.env`. Depois inicie o site:
 
 ```bash
 uvicorn main:app --reload
